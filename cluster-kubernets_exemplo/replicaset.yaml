@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: meureplicaset
+spec:
+  #replicas, quantos pods replicados eu quero rodar
+  replicas: 5
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata: 
+      labels:
+        app: web
+    spec: 
+      containers:
+      - name: site
+        image: fabricioveronez/web-page:green
+        ports:
+        - containerPort: 80
+
+
+
+
+
+
+#Verificar recursos disponiveis para apiVersion
+#kubectl api-resources
+
+#Comando para criar o replicaset
+#kubectl apply -f .\pod.yaml
+
+#Comando listar os replicasets
+#kubectl get replicaset
+
+#Ver mais detalhes do pod
+#kubectl describe replicaset meureplicaset
+

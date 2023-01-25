@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meudeployment
+spec:
+  #replicas, quantos pods replicados eu quero rodar
+  replicas: 10
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata: 
+      labels:
+        app: web
+    spec: 
+      containers:
+      - name: site
+        image: fabricioveronez/web-page:green
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-page
+spec:
+  selector: 
+    app: web
+  ports:
+    - port: 80
+      protocol: TCP
+      nodePort: 30000
+  type: NodePort
+
+
+#criar cluster
+#k3d cluster create meucluster
+
+#criar cluster com port binding e loadbalancer
+#k3d cluster create meucluster -p "80:30000@loadbalancer"
+
+#deletar cluster
+#k3d cluster delete meucluster
+
+
+#O kind Development manter os pods atualizados, caso em uma atualização eu quiser fazer rollback de um replicaset com versão anterior
+#kubectl rollout undo deployment meudeployment
+
+#Ver o serviço que vai expor os pods e fazer o balanceamento
+# kubectl get service
+
+#Ver tudo
+# kubectl get all
+
+#port binding no service, fazendo o balanceamento
+#kubectl port-forward service/web-page 8080:80

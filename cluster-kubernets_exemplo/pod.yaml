@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: meupod-azul
+  labels:
+    cor: azul
+spec: 
+  containers:
+  - name: site
+    #image: kakoferrare/conversao-temperatura:v1
+    image: fabricioveronez/web-page:blue
+    ports:
+    - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: meupod-verde
+  labels:
+    cor: verde
+spec: 
+  containers:
+  - name: site
+    #image: kakoferrare/conversao-temperatura:v1
+    image: fabricioveronez/web-page:green
+    ports:
+    - containerPort: 80
+
+
+#Criar o cluster
+#k3d cluster create meucluster
+
+#Comando para criar o pod
+#kubectl apply -f .\pod.yaml
+
+#Deletar pod
+#kubectl delete pod meupod
+
+#Deletar pods declarados no yaml
+#kubectl delete -f .\pod.yaml
+
+#Ver os pods rodando
+#kubectl get pods
+
+#Ver mais detalhes do pod
+#kubectl describe pod meupod
+#kubectl get pods
+
+#Ver pod buscando pela label
+#kubectl get pods -l cor=azul
+
+
+#Acessar o pod(fazer tipo port-biding do docker)
+#kubectl port-forward pod/meupod 8080:8080
