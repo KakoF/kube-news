@@ -9,12 +9,12 @@ pipeline {
             }
         }
 
-        stage ('Publicaçãp da imagem no DockerHub') {
+        stage ('Push Image') {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                         dockerapp.push('latest')
-                        dockerapp.push(${env.BUILD_ID})
+                        dockerapp.push("${env.BUILD_ID}")
                     }
                 }
             }
